@@ -1,8 +1,10 @@
+import Gallery from './Gallery'
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold text-blue-600 p-6">
-      Tailwind works
-    </h1>
+    <div className="min-h-screen bg-gray-100">
+      <Gallery />
+    </div>
   )
 }
 
