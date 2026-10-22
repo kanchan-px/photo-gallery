@@ -1,10 +1,24 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useReducer, useEffect } from 'react'
 import useFetchPhotos from './useFetchPhotos'
 import PhotoCard from './PhotoCard'
+import {
+  favouritesReducer,
+  loadFavourites,
+  saveFavourites,
+} from './favouritesReducer'
 
 function Gallery() {
   const { photos, loading, error } = useFetchPhotos()
   const [query, setQuery] = useState('')
+  const [favourites, dispatch] = useReducer(
+    favouritesReducer,
+    [],
+    loadFavourites
+  )
+
+  useEffect(() => {
+    saveFavourites(favourites)
+  }, [favourites])
 
   const handleSearchChange = useCallback((e) => {
     setQuery(e.target.value)
@@ -49,7 +63,14 @@ function Gallery() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredPhotos.map((photo) => (
-            <PhotoCard key={photo.id} photo={photo} />
+            <PhotoCard
+              key={photo.id}
+              photo={photo}
+              isFavourite={favourites.includes(photo.id)}
+              onToggleFavourite={(id) =>
+                dispatch({ type: 'TOGGLE_FAVOURITE', id })
+              }
+            />
           ))}
         </div>
       )}
