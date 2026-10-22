@@ -1,16 +1,25 @@
-# React + Vite
+# Photo Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React photo gallery built for the Celebrare Frontend React Internship pre-screening assignment.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React (functional components and hooks only) with Vite
+- Tailwind CSS for all styling
+- Picsum Photos API: `https://picsum.photos/v2/list?limit=30`
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Fetches 30 photos on load, with a loading spinner and an error message
+- Responsive grid: 1 column on mobile, 2 on tablet, 4 on desktop
+- Real-time, case-insensitive search by author name (filters the data already fetched, with no extra API call)
+- Favourite photos with a heart button, managed with `useReducer` and saved in `localStorage`
+- Custom hook `useFetchPhotos` returns `photos`, `loading` and `error`
+- `useCallback` for the search handler and `useMemo` for the filtered list
 
-## Expanding the ESLint configuration
+## Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    npm install
+    npm run dev
+
+Build for production with `npm run build`.
